@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a[6]={54,3,9,23,79,1};
+    int temp,length;
+    
+    length = sizeof(a)/sizeof(a[1]);
+    
+    for (int i=0;i<length;i++)
+    {
+        temp=i;
+        for (int j=i+1;j<length;j++)
+        {
+            if(a[temp]>a[j])
+            {
+               temp=j;
+            }
+        }
+        
+        
+        if(temp!=i)
+        {
+            a[i]=a[i]+a[temp];
+            a[temp]=a[i]-a[temp];
+            a[i]= a[i]-a[temp];
+        }
+        
+        cout<<"[";
+        for (int i=0;i<length;i++)
+        {
+            cout<<a[i]<<",";
+        }
+        cout<<"]"<<endl;
+    }
+    
+    return 0;
+}
