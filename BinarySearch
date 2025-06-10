@@ -11,20 +11,6 @@ void BinarySearch(int number,int a[5],int high)
     
     mid = (low+high)/2;
    
-    
-    
-    if(a[])
-    {
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
 //     while(low<=high)
 //     {
 //         if(a[mid]==number)
