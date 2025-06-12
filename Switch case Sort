@@ -1,0 +1,133 @@
+#include <iostream>
+using namespace std;
+
+void SelectionSort(int a[],int length)
+{
+	int temp;
+
+	for(int i=0; i<length; i++)
+	{
+		temp=i;
+		for (int j=i+1; j<length; j++)
+		{
+			if(a[temp]>a[j])
+			{
+				temp=j;
+			}
+		}
+
+		if(temp!=i)
+		{
+		    swap(a[i],a[temp]);
+		}
+	}
+
+	cout<<"[";
+	for (int i=0; i<length; i++)
+	{
+		cout<<a[i];
+		if(i<length-1)
+		{
+			cout<<",";
+		}
+	}
+	cout<<"]"<<endl;
+}
+
+void BubbleSort(int a[],int length)
+{
+	int sort;
+
+	for(int i=0; i<=length; i++)
+	{
+		sort=0;
+		for (int j=0; j<length-1; j++)
+		{
+			if(a[j]>a[j+1])
+			{
+			    swap(a[j],a[j+1]);
+			}
+		}
+
+	}
+
+	cout<<"[";
+	for (int i=0; i<length; i++)
+	{
+		cout<<a[i];
+		if(i<length-1)
+		{
+			cout<<",";
+		}
+	}
+	cout<<"]"<<endl;
+
+}
+
+void InsertionSort(int a[],int length)
+{
+	int j,sort;
+
+	for(int i=1; i<length; i++)
+	{
+		sort=a[i];
+		j=i-1;
+
+		while(j>=0 && a[j]>sort)
+		{
+			a[j+1]=a[j];
+			j--;
+		}
+
+		a[j+1]=sort;
+	}
+
+	cout<<"[";
+	for (int i=0; i<length; i++)
+	{
+		cout<<a[i];
+		if(i<length-1)
+		{
+			cout<<",";
+		}
+	}
+	cout<<"]"<<endl;
+}
+
+int main()
+{
+	int a[5]= {6,3,21,6,8};
+
+	int length,choice;
+
+	length = sizeof(a)/sizeof(a[2]);
+
+
+	cout<<"1.SelectionSort"<<"\n2.BubbleSort"<<"\n3.InsertionSort"<<endl<<endl;
+	cout<<"Your Choice : ";
+	cin>>choice;
+	cout<<endl;
+
+
+	switch(choice)
+	{
+	case 1 :
+		SelectionSort(a,length);
+		break;
+
+	case 2 :
+		BubbleSort(a,length);
+		break;
+
+	case 3 :
+		InsertionSort(a,length);
+		break;
+
+	default:
+		cout<<"Invalid choice";
+
+		break;
+	}
+
+	return 0;
+}
