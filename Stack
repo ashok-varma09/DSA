@@ -1,10 +1,11 @@
 #include <iostream>
 using namespace std;
 
-char stack[9] = {'{','5','+','(','2','+','3',')','}'};
+char stack[20] ;
+char a[9] = {'{','4','+','(','2','+','3',')','}'};
 int stackIndex=0;
 
-int Pop()
+char Pop()
 {
 	stackIndex--;
 	return stack[stackIndex];
@@ -13,7 +14,9 @@ int Pop()
 void Push(int value)
 {
 	stack[stackIndex] = value;
+	cout<<"Push : "<<stack[stackIndex]<<endl;
 	stackIndex++;
+
 }
 
 int Top()
@@ -23,96 +26,135 @@ int Top()
 
 int main()
 {
-	stackIndex;
-	int length,j=0;
+
+	int length;
 	int operands1,operands2;
+	int ans,ans2;
 
 	char op;
-	length = sizeof(stack)/sizeof(stack[2]);
-
+	length = sizeof(a);
 
 
 	for (int i=0; i<length; i++)
 	{
-		Push(stack[i]);
+		Push(a[i]);// '{','5','+','(','2','+','3',')','}
 
-		if(stack[i]=='(')// {5+(3+1)}
+
+		if(a[i]==')')// {5+(3+1)}
 		{
-            Pop();
-			j=i;
-        
-			while(stack[i]!=')')
+
+			Pop();
+
+
+			operands1=Pop()-'0';
+
+
+			op =  Pop();
+
+			operands2 = Pop()-'0';
+
+           Pop();
+           
+		   
+			if(op=='+')
 			{
-
-				operands1=Pop()-'0';
-
-				op =Pop();
-
-				operands2 = Pop()-'0';
-
-
-				Push(stack[i]);
-				Pop();
-				i++;
+				ans = operands1+operands2;
 			}
 
-
-		}
-
-	}
-
-    
-    int ans;
-	if(op=='+')
-	{
-		 ans = operands1+operands2;
-	}
-
-
-	int k;
-	
-	
-	
-    int op1,operetor;
-	
-	for(int i=0; i<stackIndex; i++)
-	{
-
-		if(stack[i]=='{')
-		{
+            Push((char)ans+'0');
+           
+            
+            
 		   
-			k=i;
-			while(stack[i]!='}')
-			{
-			   
-			   op1=Pop() - '0';
-			   
-			   operetor = Pop();
-			   
-			  
-			   
-			   
-			   
-			   Pop();
-                
-                i++;
-
-			}   
+		
 		}
+
+
+		if(a[i]=='}')
+		{   
+		   
+		   
+			Pop();
+
+
+			operands1=Pop()-'0';
+
+			op =  Pop();
+
+			operands2 = Pop()-'0';
+
+
+		
+			if(op=='+')
+			{
+				ans = operands1+operands2;
+
+			}
+
+            
+            Pop();     
+			Push((char)ans+'0');
+            
+             cout<<stackIndex;   
+		    cout<<"Top : "<<(char)Top();
+
+
+		}
+
 	}
 
+	// cout<<"[";
+	// for (int i=0;i<stackIndex;i++)
+	// {
+	//     cout<<a[i];
+	// }
+	// cout<<"]"<<endl;
 
 
-	if(operetor=='+')
-	{
-	   int answer = op1 + ans;
-	   cout<<answer;
-	    
-	}
+// 	int k;
 
 
 
-    cout<<"Top : "<<Top()<<endl;
+// 	int op1,operetor;
+
+// 	for(int i=0; i<stackIndex; i++)
+// 	{
+
+// 		if(stack[i]=='{')
+// 		{
+
+// 			k=i;
+// 			while(stack[i]!='}')
+// 			{
+
+// 				op1=Pop() - '0';
+
+// 				operetor = Pop();
+
+
+
+
+
+// 				Pop();
+
+// 				i++;
+
+// 			}
+// 		}
+// 	}
+
+
+
+// 	if(operetor=='+')
+// 	{
+// 		int answer = op1 + ans;
+// 		cout<<answer;
+
+// 	}
+
+
+
+// 	cout<<"Top : "<<Top()<<endl;
 
 
 	return 0;
