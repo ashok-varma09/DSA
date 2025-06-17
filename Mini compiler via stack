@@ -1,171 +1,94 @@
-
 #include <iostream>
+#include <string>
 using namespace std;
 
-char stack[20] ;
-char a[5] = {'5','-','2','+','3'};
-int stackIndex=0;
+string stack[20];
+string a[3] = {"5", "*", "7"};
+int stackIndex = 0;
 
-char Pop ()
-{
-	stackIndex--;
-	return stack[stackIndex];
+string Pop() {
+    stackIndex--;
+    return stack[stackIndex];
 }
 
-void Push(int value)
-{
-	stack[stackIndex] = value;
-	stackIndex++;
-
+void Push(string value) {
+    stack[stackIndex] = value;
+    stackIndex++;
 }
 
-char Top()
-{
-	return stack[stackIndex-1];
+string Top() {
+    return stack[stackIndex - 1];
 }
 
-int main()
-{
+int Operation(int o1, int o2, string op) {
+    if (op == "+") {
+        return o1 + o2;
+    }
+    if (op == "-") {
+        return o1 - o2;
+    }
+    if (op == "*") {
+        return o1 * o2;
+    }
+    return 0;
+}
 
-	int length;
-	int operands1,operands2;
-	int ans;
+int main() {
+    int length;
+    int operands1, operands2;
+    int ans;
+    string op;
 
-	char op;
-	length = sizeof(a);
+    length = sizeof(a) / sizeof(a[0]);
+    cout << length << endl;
 
+    for (int i = 0; i < length; i++) {
+        Push(a[i]);
 
-	for (int i=0; i<length; i++)
-	{
-		Push(a[i]);// '{','5','+','(','2','+','3',')','}
+        if (a[i] == ")") {
+            Pop();
 
+            operands2 = stoi(Pop());
+            op = Pop();
+            operands1 = stoi(Pop());
 
-		if(a[i]==')')// {5+(3+1)}
-		{
+            if (Top() == "(") {
+                Pop();
+            }
 
-			Pop();
+            ans = Operation(operands1, operands2, op);
+            cout << "operator: " << op << endl;
+            Push(to_string(ans));
+        }
 
+        if (a[i] == "}") {
+            Pop();
 
-			operands2=Pop()-'0';
+            operands2 = stoi(Pop());
+            op = Pop();
+            operands1 = stoi(Pop());
 
-			op =  Pop();
+            ans = Operation(operands1, operands2, op);
 
-			operands1 = Pop()-'0';
+            if (Top() == "{") {
+                Pop();
+            }
 
+            cout << "after: " << ans << endl;
+            Push(to_string(ans));
+        }
+    }
 
-			
-				if(Top()=='(')
-				{
-					Pop();
-				}
-			
+    while (stackIndex > 1) {
+        operands2 = stoi(Pop());
+        op = Pop();
+        operands1 = stoi(Pop());
 
+        ans = Operation(operands1, operands2, op);
+        cout << "Answer: " << ans << endl;
 
-			switch(op)
-			{
-			case '+':
-
-				ans = operands1+operands2;
-				break;
-
-			case '-':
-				ans = operands1-operands2;
-				break;
-
-			case '*':
-				ans = operands1*operands2;
-				break;
-			}
-
-			cout<<"Before : "<<ans<<endl;
-
-			Push((char)ans+'0');
-
-
-
-
-
-		}
-
-
-		if(a[i]=='}')
-		{
-			Pop();
-
-
-			operands2 =Pop()-'0';
-
-			op =  Pop();
-
-			operands1 = Pop()-'0';
-
-
-			switch(op)
-			{
-			case '+':
-
-				ans = operands1+operands2;
-				break;
-
-			case '-':
-				ans = operands1-operands2;
-				break;
-
-			case '*':
-				ans = operands1*operands2;
-				break;
-			}
-
-
-
-			
-				if(Top()=='{')
-				{
-					Pop();
-				}
-			
-			
-			cout<<"after : "<<ans<<endl;
-
-
-			Push((char)ans+'0');
-
-
-		
-
-
-		}
-
-	}
-	
-	
-	while(stackIndex>1)
-	{
-	    
-	    operands2=Pop()-'0';
-	    op=Pop();
-	    operands1 = Pop()-'0';
-	    
-	    	switch(op)
-			{
-			case '+':
-
-				ans = operands1+operands2;
-				break;
-
-			case '-':
-				ans = operands1-operands2;
-				break;
-
-			case '*':
-				ans = operands1*operands2;
-				break;
-			}
-			
-			cout<<"Answer : "<<ans<<endl;
-			Push((char)ans+'0');
-	}
-        	
-		cout<<"Top : "<<Top();
-	return 0;
+        Push(to_string(ans));
+    }
+    cout << "Top: " << Top() << endl;
+    return 0;
 }
