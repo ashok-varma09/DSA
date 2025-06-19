@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+class stack
+{
+    public:
+    
+    int Stack[3];
+    int StackIndex=0;
+    
+    void Push(int value)
+    {
+        Stack[StackIndex]=value;
+        StackIndex++;
+    }
+    
+    int Pop()
+    {
+        StackIndex--;
+        return Stack[StackIndex];
+    }
+    
+    int Top()
+    {
+        return Stack[StackIndex-1];
+    }
+};
+
+
+int main()
+{
+    stack a,b,c;
+    int arr[3]={3,2,1};
+    
+    
+    int length = sizeof(a.Stack)/sizeof(a.Stack[0]);
+    
+    for (int i=0;i<length;i++)
+    {
+        a.Push(arr[i]);
+    }
+    
+        c.Push(a.Pop());  
+        b.Push(a.Pop());
+        b.Push(c.Pop());
+        c.Push(a.Pop());
+        a.Push(b.Pop());
+        c.Push(b.Pop());
+        c.Push(a.Pop());
+
+
+    for (int i=0;i<c.StackIndex;i++)
+    {
+        cout<<c.Stack[i]<<",";
+    }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    return 0;
+}
